@@ -1,0 +1,35 @@
+mat-card {
+  height: 120px;
+}
+
+.fill {
+  margin: 20px;
+  flex: 1;
+}
+
+mat-card-content {
+  display: flex;
+
+  img {
+    height: 120px;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+footer {
+  display: flex;
+  align-items: center;
+
+  .total {
+    margin: 0 20px;
+    font-size: 20px;
+    line-height: 32px;
+    font-weight: 500;
+  }
+}

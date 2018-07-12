@@ -1,0 +1,27 @@
+header {
+  position: fixed;
+  top: 0px;
+  width: 100vw;
+  z-index: 10;
+
+  app-cart {
+    margin: 0 20px;
+  }
+}
+
+main {
+  margin-top: 64px;
+}
+
+mat-toolbar {
+  display: flex;
+
+  .fill {
+    flex: 1;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}

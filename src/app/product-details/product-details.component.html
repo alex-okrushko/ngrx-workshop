@@ -1,0 +1,31 @@
+<mat-card *ngIf="product$ | async as product">
+  <mat-card-title>{{product.title}}</mat-card-title>
+  <mat-card-subtitle>{{product.price | currency}}</mat-card-subtitle>
+  <mat-card-content>{{product.description}}</mat-card-content>
+  <img [src]="product.url">
+  <mat-card-actions>
+    <app-stars
+      canRate="true"
+      (ratingChange)="setRating(product.id, $event)"
+      [rated]="customerRating$ | async"
+      [rating]="product.rating">
+    </app-stars>
+    <div *ngIf="customerRating$ | async">Your rating</div>
+    <div class="space-filler"></div>
+    <div class="action-buttons">
+      <button
+        mat-button
+        type="button"
+        (click)="back()">
+        Back
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="addToCart(product.id)">
+        Add to cart
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>
