@@ -8,6 +8,9 @@ import { CartModule } from './cart/cart.module';
 import { MatToolbarModule, MatIconModule } from '@angular/material';
 import { ProductDetailsModule } from './product-details/product-details.module';
 import { CartDetailsModule } from './cart-details/cart-details.module';
+import {StoreModule} from '@ngrx/store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import { reducer } from './reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +23,8 @@ import { CartDetailsModule } from './cart-details/cart-details.module';
     ProductDetailsModule,
     MatIconModule,
     MatToolbarModule,
+    StoreModule.forRoot({products: reducer}),
+    StoreDevtoolsModule.instrument({maxAge: 50}),
   ],
   bootstrap: [AppComponent],
 })

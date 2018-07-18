@@ -1,21 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 
 import { Product } from '../model/product';
-import { data } from '../services/product-data';
-import { ProductService } from '../services/product.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
-  products$: Observable<Product[]>;
+export class HomeComponent {
+  products$ = this.store.select(state => state.products);
 
-  constructor(private readonly productService: ProductService) {}
-
-  ngOnInit() {
-    this.products$ = this.productService.getProducts();
-  }
+  constructor(private readonly store: Store<{ products: Product[] }>) {}
 }
