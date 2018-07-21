@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import * as actions from '../actions';
+
 import { Product } from '../model/product';
 import { ProductService } from '../services/product.service';
 import { Store } from '@ngrx/store';
-import { SetProducts } from '../actions';
-import { data } from '../services/product-data';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(new SetProducts(data));
+    this.store.dispatch(new actions.FetchProducts());
     this.products$ = this.store.select(state => state.products);
   }
 }
