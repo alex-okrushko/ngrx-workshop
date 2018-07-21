@@ -1,6 +1,10 @@
 import * as actions from './actions';
 import { Product } from './model/product';
 
+export interface GlobalState {
+  products: ProductState;
+}
+
 export type ProductState = Product[];
 const initState: ProductState = [];
 
