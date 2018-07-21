@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { defer, Observable, of } from 'rxjs';
+import { defer, Observable, of, throwError } from 'rxjs';
 import { delay, filter } from 'rxjs/operators';
 
 import { Product } from '../model/product';
@@ -15,7 +15,12 @@ export class ProductService {
   constructor() {}
 
   getProducts(): Observable<Product[]> {
-    return defer(() => of(stripDescription(data)).pipe(delay(1 * 1000)));
+    return defer(
+      () =>
+        Math.random() < 0.25
+          ? throwError('Internal Error')
+          : of(data).pipe(delay(1 * 1000))
+    );
   }
 
   getProduct(id: string): Observable<Product> {
