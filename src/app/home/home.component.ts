@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 
-import { Product } from '../model/product';
+import * as actions from './actions';
+import { ProductState } from '../reducer';
 import { Store } from '@ngrx/store';
-import { SetProducts } from '../actions';
-import { data } from '../services/product-data';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +12,7 @@ import { data } from '../services/product-data';
 export class HomeComponent {
   products$ = this.store.select(state => state.products);
 
-  constructor(private readonly store: Store<{ products: Product[] }>) {
-    this.store.dispatch(new SetProducts(data));
+  constructor(private readonly store: Store<{ products: ProductState }>) {
+    this.store.dispatch(new actions.FetchProducts());
   }
 }
