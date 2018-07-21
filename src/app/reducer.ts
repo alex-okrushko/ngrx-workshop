@@ -3,7 +3,11 @@ import {Action} from '@ngrx/store';
 import * as actions from './actions';
 import {Product} from './model/product';
 
-type ProductState = Product[];
+export interface GlobalState {
+  products: ProductState;
+}
+
+export type ProductState = Product[];
 const initState: ProductState = [];
 
 export function reducer(
