@@ -9,7 +9,7 @@ export function reducer(
   action: actions.All
 ): ProductState {
   switch (action.type) {
-    case actions.SET_PRODUCTS: {
+    case actions.FETCH_PRODUCTS_SUCCESS: {
       return action.payload;
     }
   }

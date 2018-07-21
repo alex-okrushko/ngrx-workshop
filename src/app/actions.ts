@@ -1,11 +1,16 @@
 import { Action } from '@ngrx/store';
 import { Product } from './model/product';
 
-export const SET_PRODUCTS = '[Products API] Set Products';
-export class SetProducts implements Action {
-  readonly type = SET_PRODUCTS;
+export const FETCH_PRODUCTS_SUCCESS = '[Products API] Fetch Products success';
+export class FetchProductsSuccess implements Action {
+  readonly type = FETCH_PRODUCTS_SUCCESS;
 
   constructor(readonly payload: Product[]) {}
 }
 
-export type All = SetProducts;
+export const FETCH_PRODUCTS_ERROR = '[Products API] Fetch Products error';
+export class FetchProductsError implements Action {
+  readonly type = FETCH_PRODUCTS_ERROR;
+}
+
+export type All = FetchProductsSuccess | FetchProductsError;

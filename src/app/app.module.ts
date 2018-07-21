@@ -5,7 +5,11 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
 import { RoutingModule } from './routing.module';
 import { CartModule } from './cart/cart.module';
-import { MatToolbarModule, MatIconModule } from '@angular/material';
+import {
+  MatToolbarModule,
+  MatIconModule,
+  MatSnackBarModule,
+} from '@angular/material';
 import { ProductDetailsModule } from './product-details/product-details.module';
 import { CartDetailsModule } from './cart-details/cart-details.module';
 import { StoreModule } from '@ngrx/store';
@@ -25,7 +29,7 @@ import { ProductEffects } from './effects';
     ProductDetailsModule,
     MatIconModule,
     MatToolbarModule,
-
+    MatSnackBarModule,
     StoreModule.forRoot({ products: reducer }),
     EffectsModule.forRoot([ProductEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),
