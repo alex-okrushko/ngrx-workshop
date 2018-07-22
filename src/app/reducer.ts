@@ -16,6 +16,8 @@ export function reducer(
     case actions.FETCH_PRODUCTS_SUCCESS: {
       return action.payload;
     }
+    default: {
+      return state;
+    }
   }
-  return state;
 }
