@@ -26,6 +26,11 @@ export function reducer(
         cartItemsIds: newCartItemsIds,
       };
     }
+    case cartActions.FETCH_CART_ITEMS_SUCCESS: {
+      return {
+        cartItemsIds: action.itemIds,
+      };
+    }
     default: {
       return state;
     }

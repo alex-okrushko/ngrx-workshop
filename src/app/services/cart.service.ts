@@ -60,7 +60,7 @@ export class CartService {
       .subscribe(() => this.itemsChanged$.next(undefined));
   }
 
-  private getCartItems(): Observable<string[]> {
+  getCartItems(): Observable<string[]> {
     return this.storageService
       .fetch(CART_PREFIX)
       .pipe(map(ids => (ids ? ids.split(',') : [])));
