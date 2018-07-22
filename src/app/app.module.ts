@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
-import { RoutingModule } from './routing.module';
+import { RoutingModule } from './router/routing.module';
 import { CartModule } from './cart/cart.module';
 import {
   MatToolbarModule,
