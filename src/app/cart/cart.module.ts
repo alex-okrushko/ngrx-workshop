@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { CartComponent } from './cart.component';
 import { StoreModule } from '@ngrx/store';
 import { CART_FEATURE_KEY, reducer } from './reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CartEffects } from './effects';
 
 @NgModule({
   imports: [
@@ -16,6 +18,7 @@ import { CART_FEATURE_KEY, reducer } from './reducer';
     StoreModule.forFeature(CART_FEATURE_KEY, {
       cart: reducer,
     }),
+    EffectsModule.forFeature([CartEffects]),
   ],
   declarations: [CartComponent],
   exports: [CartComponent],

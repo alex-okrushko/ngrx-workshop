@@ -5,6 +5,7 @@ import { CartService } from '../services/cart.service';
 import { Store } from '@ngrx/store';
 
 import * as selectors from './selectors';
+import * as actions from './actions';
 
 @Component({
   selector: 'app-cart',
@@ -16,5 +17,7 @@ export class CartComponent {
     .select(selectors.getCartItemsCount)
     .pipe(startWith('?'));
 
-  constructor(private readonly store: Store<{}>) {}
+  constructor(private readonly store: Store<{}>) {
+    this.store.dispatch(new actions.FetchCartItems());
+  }
 }
