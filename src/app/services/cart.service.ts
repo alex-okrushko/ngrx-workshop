@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { delayWhen, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import {
+  delayWhen,
+  map,
+  shareReplay,
+  switchMap,
+  tap,
+  concatMap,
+} from 'rxjs/operators';
 
 import { StorageService } from './storage.service';
 
@@ -8,13 +15,11 @@ const CART_PREFIX = 'cart:';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private itemsChanged$ = new BehaviorSubject<void>(undefined);
-
   constructor(private readonly storageService: StorageService) {}
 
   addToCart(id: string): Observable<void> {
     return this.getCartItems().pipe(
-      switchMap(
+      concatMap(
         ids =>
           Math.random() < 0.25
             ? throwError('Internal Error')
@@ -23,36 +28,32 @@ export class CartService {
     );
   }
 
-  removeOne(id: string): void {
-    this.getCartItems()
-      .pipe(
-        delayWhen(ids => {
-          ids.splice(ids.indexOf(id), 1);
-          return this.storageService.set(CART_PREFIX, ids.join(','));
-        })
-      )
-      .subscribe(() => this.itemsChanged$.next(undefined));
+  removeOne(id: string): Observable<void> {
+    return this.getCartItems().pipe(
+      concatMap(ids => {
+        ids.splice(ids.indexOf(id), 1);
+        return this.storageService.set(CART_PREFIX, ids.join(','));
+      })
+    );
   }
 
-  removeAll() {
-    this.storageService
-      .set(CART_PREFIX, '')
-      .subscribe(() => this.itemsChanged$.next(undefined));
+  removeAll(): Observable<void> {
+    return this.storageService.set(CART_PREFIX, '');
   }
 
-  purchase(purchaseItems: { id: string; quantity: number }[]) {
-    this.getCartItems()
-      .pipe(
-        delayWhen(ids => {
-          for (const item of purchaseItems) {
-            for (let i = 0; i < item.quantity; i++) {
-              ids.splice(ids.indexOf(item.id), 1);
-            }
+  purchase(
+    purchaseItems: { id: string; quantity: number }[]
+  ): Observable<void> {
+    return this.getCartItems().pipe(
+      concatMap(ids => {
+        for (const item of purchaseItems) {
+          for (let i = 0; i < item.quantity; i++) {
+            ids.splice(ids.indexOf(item.id), 1);
           }
-          return this.storageService.set(CART_PREFIX, ids.join(','));
-        })
-      )
-      .subscribe(() => this.itemsChanged$.next(undefined));
+        }
+        return this.storageService.set(CART_PREFIX, ids.join(','));
+      })
+    );
   }
 
   getCartItems(): Observable<string[]> {

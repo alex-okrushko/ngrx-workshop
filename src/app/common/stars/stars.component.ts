@@ -19,6 +19,7 @@ export class StarsComponent {
 
   @Input() rated = 0;
   @Input() rating = 0;
+  @Input() isLoading = false;
 
   @Output() ratingChange = new EventEmitter<number>();
 

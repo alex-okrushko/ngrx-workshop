@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Product } from '../model/product';
+import { RatingScore } from '../model/rating';
 
 export const ADD_ITEM = '[Product Details] add one item';
 export class AddItem implements Action {
@@ -26,8 +27,22 @@ export class FetchProductError implements Action {
   readonly type = FETCH_PRODUCT_ERROR;
 }
 
+export const GET_CURRENT_PRODUCT_RATING =
+  '[Product Details] get rating for current product';
+export class GetCurrentProductRating implements Action {
+  readonly type = GET_CURRENT_PRODUCT_RATING;
+}
+
+export const SET_RATING = '[Product Details] set rating';
+export class SetRating implements Action {
+  readonly type = SET_RATING;
+  constructor(readonly score: RatingScore) {}
+}
+
 export type All =
-  | AddItem
   | FetchCurrentProduct
   | FetchProductError
-  | FetchProductSuccess;
+  | FetchProductSuccess
+  | AddItem
+  | GetCurrentProductRating
+  | SetRating;

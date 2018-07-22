@@ -3,18 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { StorageService } from './storage.service';
+import { RatingScore } from '../model/rating';
 
 const RATING_PREFIX = 'rating:';
 
 @Injectable({ providedIn: 'root' })
 export class RatingService {
-  setCustomerRating({
-    id,
-    rating,
-  }: {
-    id: string;
-    rating: number;
-  }): Observable<void> {
+  setCustomerRating({ id, rating }: RatingScore): Observable<void> {
     return this.storageService.set(RATING_PREFIX + id, String(rating));
   }
 
