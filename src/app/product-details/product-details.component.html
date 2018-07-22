@@ -7,10 +7,11 @@
     <app-stars
       canRate="true"
       (ratingChange)="setRating(product.id, $event)"
-      [rated]="customerRating$ | async"
+      [isLoading]="(customerRating$ | async)?.isLoading"
+      [rated]="(customerRating$ | async)?.rating"
       [rating]="product.rating">
     </app-stars>
-    <div *ngIf="customerRating$ | async">Your rating</div>
+    <div *ngIf="(customerRating$ | async)?.rating">Your rating</div>
     <div class="space-filler"></div>
     <div class="action-buttons">
       <button
