@@ -14,39 +14,14 @@ import * as selectors from '../cart/selectors';
   styleUrls: ['./cart-details.component.scss'],
 })
 export class CartDetailsComponent {
-  cartProducts$: Observable<CartProduct[]> = combineLatest(
-    this.store.select(selectors.getCartItemsIds),
-    this.productService.getProducts(),
-    (ids, products) => ({ ids, products })
-  ).pipe(
-    map(({ ids, products }) => {
-      // Reduce ids array to id:quantity Indexable
-      const idsMap = ids.reduce((acc, id) => {
-        const currentQuantity = acc[id] || 0;
-        acc[id] = currentQuantity + 1;
-        return acc;
-      }, {});
-
-      // Fill each id with quantity and product info.
-      return Object.keys(idsMap).map(id => ({
-        ...products.find(p => p.id === id),
-        quantity: idsMap[id],
-      }));
-    })
+  cartProducts$: Observable<CartProduct[]> = this.store.select(
+    selectors.getCartProducts
   );
 
-  total$ = this.cartProducts$.pipe(
-    map(cartProducts =>
-      cartProducts.reduce(
-        (acc, product) => acc + product.price * product.quantity,
-        0
-      )
-    )
-  );
+  total$ = this.store.select(selectors.getCartTotal);
 
   constructor(
     private readonly cartService: CartService,
-    private readonly productService: ProductService,
     private readonly store: Store<{}>
   ) {}
 
