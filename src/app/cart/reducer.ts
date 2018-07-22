@@ -26,6 +26,16 @@ export function reducer(
         cartItemsIds: newCartItemsIds,
       };
     }
+    case cartActions.ADD_ITEM_ERROR: {
+      const indexOfItemId = state.cartItemsIds.indexOf(action.itemId);
+      // Remove the element.
+      state.cartItemsIds.splice(indexOfItemId, 1);
+      // Force array to mutate.
+      const newCartItemsIds = [...state.cartItemsIds];
+      return {
+        cartItemsIds: newCartItemsIds,
+      };
+    }
     case cartActions.FETCH_CART_ITEMS_SUCCESS: {
       return {
         cartItemsIds: action.itemIds,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { delayWhen, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { StorageService } from './storage.service';
@@ -10,22 +10,17 @@ const CART_PREFIX = 'cart:';
 export class CartService {
   private itemsChanged$ = new BehaviorSubject<void>(undefined);
 
-  cartItemsIds$: Observable<string[]> = this.itemsChanged$.pipe(
-    switchMap(() => this.getCartItems()),
-    // Shared among all the subscribers.
-    shareReplay(1)
-  );
-
   constructor(private readonly storageService: StorageService) {}
 
-  addToCart(id: string): void {
-    this.getCartItems()
-      .pipe(
-        delayWhen(ids =>
-          this.storageService.set(CART_PREFIX, [...ids, id].join(','))
-        )
+  addToCart(id: string): Observable<void> {
+    return this.getCartItems().pipe(
+      switchMap(
+        ids =>
+          Math.random() < 0.25
+            ? throwError('Internal Error')
+            : this.storageService.set(CART_PREFIX, [...ids, id].join(','))
       )
-      .subscribe(() => this.itemsChanged$.next(undefined));
+    );
   }
 
   removeOne(id: string): void {
