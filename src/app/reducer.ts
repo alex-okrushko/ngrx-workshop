@@ -2,12 +2,19 @@ import * as actions from './actions';
 import * as productActions from './product-details/actions';
 import { Product } from './model/product';
 
+import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
+
 export interface GlobalState {
   products: ProductState;
 }
 
-export type ProductState = Product[];
-const initState: ProductState = [];
+export type ProductState = EntityState<Product>;
+
+// If your entity's id property is different you can spesify it during
+// entity adapter creation.
+export const productAdapter: EntityAdapter<Product> = createEntityAdapter();
+
+const initState: ProductState = productAdapter.getInitialState();
 
 export function reducer(
   state: ProductState = initState,
@@ -15,14 +22,10 @@ export function reducer(
 ): ProductState {
   switch (action.type) {
     case actions.FETCH_PRODUCTS_SUCCESS: {
-      return action.payload;
+      return productAdapter.upsertMany(action.payload, state);
     }
     case productActions.FETCH_PRODUCT_SUCCESS: {
-      const indexOfProduct = state.findIndex(p => p.id === action.payload.id);
-      // Remove old one and replace with single product fetch,
-      state.splice(indexOfProduct, 1, action.payload);
-      // Make it immutable.
-      return [...state];
+      return productAdapter.upsertOne(action.payload, state);
     }
     default: {
       return state;
