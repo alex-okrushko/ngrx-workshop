@@ -4,6 +4,10 @@ a.card-link {
   text-decoration: none;
 }
 
+mat-progress-bar {
+  position: absolute;
+}
+
 mat-card {
   max-width: 200px;
 }

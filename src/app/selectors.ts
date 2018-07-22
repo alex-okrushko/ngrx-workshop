@@ -4,7 +4,17 @@ import * as routerSelectors from './router/selectors';
 import { productAdapter } from './reducer';
 
 const { selectAll, selectEntities } = productAdapter.getSelectors();
-export const getProductsState = (state: GlobalState) => state.products;
+export const getProductState = (state: GlobalState) => state.product;
+
+export const isProductsLoading = createSelector(
+  getProductState,
+  state => state.isLoading
+);
+
+const getProductsState = createSelector(
+  getProductState,
+  state => state.products
+);
 
 export const getProducts = createSelector(getProductsState, selectAll);
 

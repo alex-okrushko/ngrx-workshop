@@ -1,6 +1,10 @@
+<mat-progress-bar
+  *ngIf="loading$ | async"
+  mode="indeterminate"></mat-progress-bar>
+
 <div
   class="products-container"
-  *ngIf="products$ | async as products; else loadingProducts">
+  *ngIf="products$ | async as products">
   <a
     class="card-link"
     [routerLink]="['/details', product.id]"
@@ -15,7 +19,3 @@
     </mat-card>
   </a>
 </div>
-
-<ng-template #loadingProducts>
-  <span>Loading...</span>
-</ng-template>
