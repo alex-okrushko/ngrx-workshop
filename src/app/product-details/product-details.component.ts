@@ -5,9 +5,10 @@ import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { Product } from '../model/product';
-import { CartService } from '../services/cart.service';
 import { ProductService } from '../services/product.service';
 import { RatingService } from '../services/rating.service';
+import { Store } from '@ngrx/store';
+import * as cartActions from '../cart/actions';
 
 @Component({
   selector: 'app-product-details',
@@ -43,7 +44,7 @@ export class ProductDetailsComponent {
     private readonly router: ActivatedRoute,
     private readonly productService: ProductService,
     private readonly ratingService: RatingService,
-    private readonly cartService: CartService,
+    private readonly store: Store<{}>,
     private readonly location: Location
   ) {}
 
@@ -57,7 +58,7 @@ export class ProductDetailsComponent {
   }
 
   addToCart(productId: string) {
-    this.cartService.addToCart(productId);
+    this.store.dispatch(new cartActions.AddItem(productId));
   }
 
   back() {
