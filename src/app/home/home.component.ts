@@ -13,6 +13,7 @@ import { GlobalState } from '../reducer';
 })
 export class HomeComponent {
   products$ = this.store.select(selectors.getProducts);
+  loading$ = this.store.select(selectors.isProductsLoading);
 
   constructor(private readonly store: Store<GlobalState>) {
     this.store.dispatch(new actions.FetchProducts());

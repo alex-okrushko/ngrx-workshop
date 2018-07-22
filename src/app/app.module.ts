@@ -30,7 +30,7 @@ import { ProductEffects } from './effects';
     MatIconModule,
     MatToolbarModule,
     MatSnackBarModule,
-    StoreModule.forRoot({ products: reducer }),
+    StoreModule.forRoot({ product: reducer }),
     EffectsModule.forRoot([ProductEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),
   ],
