@@ -4,11 +4,9 @@ import { Observable } from 'rxjs';
 import * as actions from '../actions';
 
 import { Product } from '../model/product';
-import { ProductService } from '../services/product.service';
 import { Store } from '@ngrx/store';
 
 import * as selectors from '../selectors';
-import { GlobalState } from '../reducer';
 
 @Component({
   selector: 'app-home',
@@ -18,10 +16,7 @@ import { GlobalState } from '../reducer';
 export class HomeComponent implements OnInit {
   products$: Observable<Product[]>;
 
-  constructor(
-    private readonly productService: ProductService,
-    private readonly store: Store<GlobalState>
-  ) {}
+  constructor(private readonly store: Store<{}>) {}
 
   ngOnInit() {
     this.store.dispatch(new actions.FetchProducts());
