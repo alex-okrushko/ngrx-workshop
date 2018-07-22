@@ -1,7 +1,12 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ROUTER_FEATURE_KEY } from './routing.module';
+import {
+  createFeatureSelector,
+  createSelector,
+  MemoizedSelector,
+} from '@ngrx/store';
 import { RouterReducerState } from '@ngrx/router-store';
 import { RouterStateUrl } from './custom-router-serializer';
+
+export const ROUTER_FEATURE_KEY = 'Router feature';
 
 export const routerFeatureState = createFeatureSelector<
   RouterReducerState<RouterStateUrl>
@@ -16,3 +21,7 @@ export const getRouterParams = createSelector(
   routerState,
   state => state.params
 );
+
+export function getRouterParam(paramName: string) {
+  return createSelector(getRouterParams, params => params[paramName]);
+}

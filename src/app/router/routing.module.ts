@@ -12,6 +12,7 @@ import {
 } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { CustomRouterSerializer } from './custom-router-serializer';
+import { ROUTER_FEATURE_KEY } from './selectors';
 
 const routes: Routes = [
   { path: 'details/:productId', component: ProductDetailsComponent },
@@ -19,8 +20,6 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
-
-export const ROUTER_FEATURE_KEY = 'Router feature';
 
 @NgModule({
   imports: [

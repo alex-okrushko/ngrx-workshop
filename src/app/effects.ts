@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class ProductEffects {
   constructor(
-    private readonly actions$: Actions,
+    private readonly actions$: Actions<actions.All>,
     private readonly productService: ProductService,
     private readonly snackBar: MatSnackBar
   ) {}

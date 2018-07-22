@@ -19,7 +19,9 @@ export class ProductService {
       () =>
         Math.random() < 0.25
           ? throwError('Internal Error')
-          : of(data).pipe(delay(1 * 1000))
+          : // Pretend that data comes without Description when NOT requested
+            // for a particular product.
+            of(stripDescription(data)).pipe(delay(1 * 1000))
     );
   }
 

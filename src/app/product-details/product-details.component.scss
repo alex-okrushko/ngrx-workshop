@@ -6,6 +6,10 @@ img {
   width: 300px;
 }
 
+mat-card-content {
+  min-height: 150px;
+}
+
 mat-card-actions {
   display: flex;
   align-items: center;
