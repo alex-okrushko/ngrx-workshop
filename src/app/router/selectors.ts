@@ -17,3 +17,7 @@ export const getRouterParams = createSelector(
   routerState,
   state => state.params
 );
+
+export function getRouterParam(paramName: string) {
+  return createSelector(getRouterParams, params => params[paramName]);
+}
