@@ -5,7 +5,7 @@ a.card-link {
 }
 
 mat-card {
-  max-width: 400px;
+  max-width: 200px;
 }
 
 .products-container {
@@ -15,4 +15,9 @@ mat-card {
 
 .thumbnail {
   width: 100%;
+}
+
+.update-info {
+  line-height: 20px;
+  font-size: 16px;
 }

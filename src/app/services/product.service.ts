@@ -20,6 +20,6 @@ export class ProductService {
 
   getProduct(id: string): Observable<Product> {
     const product = data.find(p => p.id === id);
-    return defer(() => of(product).pipe(delay(1 * 1000)));
+    return defer(() => of(product).pipe(delay(3 * 1000)));
   }
 }
