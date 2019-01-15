@@ -14,12 +14,16 @@ import { ProductDetailsModule } from './product-details/product-details.module';
 import { CartDetailsModule } from './cart-details/cart-details.module';
 import { StoreModule, ActionReducer, INIT, UPDATE } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { reducer as productReducer, GlobalState } from './reducer';
+import {
+  reducer as productReducer,
+  GlobalState,
+  ProductState,
+} from './reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './effects';
 import { RatingModule } from './rating/rating.module';
 
-export function productSync(reducer: ActionReducer<GlobalState>) {
+export function productSync(reducer: ActionReducer<{ product: ProductState }>) {
   return (state, action) => {
     let reducedState = reducer(state, action);
     if (action.type === INIT) {
@@ -30,8 +34,7 @@ export function productSync(reducer: ActionReducer<GlobalState>) {
           product: JSON.parse(data),
         };
       }
-    }
-    if (action.type !== UPDATE) {
+    } else if (action.type !== UPDATE) {
       window.localStorage.setItem(
         'productData',
         JSON.stringify(reducedState.product)
